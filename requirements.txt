@@ -1,0 +1,7 @@
+yfinance
+psycopg2-binary
+pandas
+numpy
+requests
+transformers
+torch
