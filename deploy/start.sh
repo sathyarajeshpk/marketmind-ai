@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+echo "Database URI inside container:"
+echo $SQLALCHEMY_DATABASE_URI
+
 echo "Running Superset DB migrations..."
 superset db upgrade
 
