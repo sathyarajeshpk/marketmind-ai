@@ -2,13 +2,16 @@ FROM apache/superset:latest
 
 USER root
 RUN pip install psycopg2-binary
+
+# Copy config + startup script
+COPY superset_config.py /app/pythonpath/
+COPY start.sh /app/start.sh
+
+RUN chmod +x /app/start.sh
+
 USER superset
 
 ENV SUPERSET_SECRET_KEY=marketmind-secret-key
-ENV FLASK_ENV=production
+ENV PYTHONPATH=/app/pythonpath
 
-CMD gunicorn \
-  --workers 2 \
-  --timeout 120 \
-  --bind 0.0.0.0:${PORT:-8088} \
-  "superset.app:create_app()"
+ENTRYPOINT ["/app/start.sh"]
