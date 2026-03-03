@@ -6,6 +6,7 @@ USER superset
 
 ENV SUPERSET_SECRET_KEY=marketmind-secret-key
 ENV FLASK_ENV=production
+ENV SUPERSET_DATABASE_URI=${SUPERSET_DATABASE_URL}
 
 CMD gunicorn \
   --workers 2 \
