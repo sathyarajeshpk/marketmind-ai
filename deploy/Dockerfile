@@ -1,9 +1,10 @@
 FROM apache/superset:latest
 
 USER root
-RUN /app/.venv/bin/pip install psycopg2-binary
 
-# Copy custom config
+RUN python -m pip install --upgrade pip
+RUN python -m pip install psycopg2-binary
+
 COPY superset_config.py /app/superset_config.py
 COPY start.sh /app/start.sh
 
