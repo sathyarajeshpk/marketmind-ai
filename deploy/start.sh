@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "Database URI inside container:"
 echo $SQLALCHEMY_DATABASE_URI
@@ -10,9 +9,11 @@ superset db upgrade
 echo "Initializing Superset..."
 superset init
 
-echo "Starting Gunicorn..."
+echo "Starting Superset..."
+
 gunicorn \
-  --workers 2 \
+  --workers 1 \
+  --threads 2 \
   --timeout 120 \
-  --bind 0.0.0.0:${PORT:-8088} \
+  --bind 0.0.0.0:$PORT \
   "superset.app:create_app()"
