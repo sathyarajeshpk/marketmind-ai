@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "Running Superset DB migrations..."
-superset db upgrade
-
-echo "Initializing Superset..."
-superset init
-
 echo "Starting Gunicorn..."
 
 exec gunicorn \
