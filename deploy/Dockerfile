@@ -1,9 +1,7 @@
 FROM apache/superset:latest
 
 USER root
-
 RUN pip install psycopg2-binary
-
 USER superset
 
 ENV SUPERSET_SECRET_KEY=marketmind-secret-key
@@ -14,6 +12,9 @@ CMD superset db upgrade && \
     --firstname Admin \
     --lastname User \
     --email admin@marketmind.ai \
-    --password admin123 && \
+    --password admin123 || true && \
     superset init && \
-    superset run -h 0.0.0.0 -p 8088
+    gunicorn \
+      --bind 0.0.0.0:$PORT \
+      --workers 2 \
+      "superset.app:create_app()"
