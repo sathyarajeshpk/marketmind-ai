@@ -25,3 +25,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.NEON_DB_URL }}
         run: python pipeline/fetch_stocks.py
+
+      - name: Run metrics calculation
+        env:
+          DATABASE_URL: ${{ secrets.NEON_DB_URL }}
+        run: python pipeline/calculate_metrics.py
