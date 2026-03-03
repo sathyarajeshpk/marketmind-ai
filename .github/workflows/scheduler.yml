@@ -30,3 +30,9 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.NEON_DB_URL }}
         run: python pipeline/calculate_metrics.py
+      
+      - name: Generate AI Insights
+        env:
+          DATABASE_URL: ${{ secrets.NEON_DB_URL }}
+          HF_API_TOKEN: ${{ secrets.HF_API_TOKEN }}
+        run: python pipeline/generate_ai_insights.py
